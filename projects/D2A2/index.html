@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
-  <title>The Devil is in the Details: Boosting Guided Depth Super-Resolution via Rethinking Cross-Modal Alignment and Aggregation</title>
+  <title>Boosting Guided Depth Super-Resolution Through Large Depth Estimation
+Model and Alignment-then-Fusion Strategy</title>
   
   <meta name="author" content="Xinni Jiang">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,30 +17,30 @@
     <div style="width: 100%;">
         <!-- Title -->
         <div class="root-content" style="padding-top: 30px;">
-            <name>The Devil is in the Details: Boosting Guided Depth Super-Resolution via Rethinking Cross-Modal Alignment and Aggregation</name>
+            <name>Boosting Guided Depth Super-Resolution Through Large Depth Estimation Model and Alignment-then-Fusion Strategy</name>
             <br>
             <div id="author-list">
-                <a href="https://JiangXinni.github.io">Xin-Ni Jiang</a><sup>1,#</sup>&nbsp;&nbsp;&nbsp;
-                Zeng-Sheng Kuang<sup>2,#</sup>&nbsp;&nbsp;&nbsp;
+                Yuan-Lin Zhang<sup>1,2,#</sup>&nbsp;&nbsp;&nbsp;
+                <a href="https://JiangXinni.github.io">Xin-Ni Jiang</a><sup>2,#</sup>&nbsp;&nbsp;&nbsp;
                 <a href="https://scholar.google.com/citations?user=RZLYwR0AAAAJ&hl=en">Chun-Le Guo</a><sup>1,*</sup>&nbsp;&nbsp;&nbsp;
-                Rui-Xun Zhang<sup>3</sup>&nbsp;&nbsp;&nbsp;
-                Lei Cai<sup>4</sup>&nbsp;&nbsp;&nbsp;
-                Xiao Fan<sup>5</sup>&nbsp;&nbsp;&nbsp;
+                Xiong-Xin Tang<sup>2,*</sup>
+                Guo-Qing Wang<sup>3</sup>&nbsp;&nbsp;&nbsp;
+                Wei Li<sup>4</sup>&nbsp;&nbsp;&nbsp;
+                Xun Liu<sup>4</sup>&nbsp;&nbsp;&nbsp;
                 <a href="https://li-chongyi.github.io/">Chong-Yi Li</a><sup>1,*</sup>&nbsp;&nbsp;&nbsp;
             </div>
             <div id="institution-list">
                 <sup>1</sup>Nankai University&nbsp;&nbsp;&nbsp;
-                <sup>2</sup>South China University of Technology&nbsp;&nbsp;&nbsp;
-                <sup>3</sup>Peking University&nbsp;&nbsp;&nbsp;<br>
-                <sup>4</sup>Henan Institute of Science and Technology&nbsp;&nbsp;&nbsp;
-                <sup>5</sup>MicroBT Electronics Technology Co., Ltd&nbsp;&nbsp;&nbsp;
+                <sup>2</sup>Chinese Academy of Sciences;
+                <sup>3</sup>University of Electronic Science and Technology of China&nbsp;&nbsp;&nbsp;<br>
+                <sup>4</sup>Beijing Institute of Space Mechanics and Electricity&nbsp;&nbsp;&nbsp;
             </div>
             <!-- <p id="publication">
                 CVPR 2024
             </p> -->
             <div id="button-list">
                 <span class="link-button">
-                    <a class="link-button-content", href="https://arxiv.org/abs/2401.08123", target="_blank">
+                    <a class="link-button-content", href="", target="_blank">
                         <span>
                             <svg class="svg-inline--fa fa-file-pdf fa-w-12" style="position: relative; top: 0.15em;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="file-pdf" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg>
                         </span>
@@ -121,12 +122,34 @@
             <div class="section-content">
             <h1 class="section-name"> Abstract </h1>
                 <p class="section-content-text">
-                    Guided depth super-resolution (GDSR) involves restoring missing depth details using the high-resolution RGB image of the same scene. Previous approaches have struggled with the heterogeneity and complementarity of the multi-modal inputs, and neglected the issues of modal misalignment, geometrical misalignment, and feature selection. In this study, we rethink some essential components in GDSR networks and propose a simple yet effective Dynamic Dual Alignment and Aggregation network (D2A2). D2A2 mainly consists of 1) a dynamic dual alignment module that adapts to alleviate the modal misalignment via a learnable domain alignment block and geometrically align cross-modal features by learning the offset; and 2) a mask-to-pixel feature aggregate module that uses the gated mechanism and pixel attention to filter out irrelevant texture noise from RGB features and combine the useful features with depth features. By combining the strengths of RGB and depth features while minimizing disturbance introduced by the RGB image, our method with simple reuse and redesign of basic components achieves state-of-the-art performance on multiple benchmark datasets. 
+                    Guided Depth Super-Resolution (GDSR) presents two primary challenges: the resolution gap between Low-Resolution
+                    (LR) depth maps and High-Resolution (HR) RGB images,
+                    and the modality gap between depth and RGB data. In this
+                    study, we leverage the powerful zero-shot capabilities of large
+                    pre-trained monocular depth estimation models to address
+                    these issues. Specifically, we utilize the output of monocular depth estimation as pseudo-depth to mitigate both gaps.
+                    The pseudo-depth map is aligned with the resolution of the
+                    RGB image, offering more detailed boundary information
+                    than the LR depth map, particularly at larger scales. Furthermore, pseudo-depth provides valuable relative positional
+                    information about objects, serving as a critical scene prior
+                    to enhance edge alignment and reduce texture overtransfer.
+                    However, effectively bridging the cross-modal differences
+                    between the guidance inputs (RGB and pseudo-depth) and
+                    LR depth remains a significant challenge. To tackle this,
+                    we analyze the modality gap from three key perspectives:
+                    distribution misalignment, geometrical misalignment, and
+                    texture inconsistency. Based on these insights, we propose
+                    an alignment-then-fusion strategy, introducing a novel and
+                    efficient Dynamic Dual-Aligned and Aggregation Network
+                    (D2A2). By leveraging large pre-trained monocular depth
+                    estimation models, our approach achieves state-of-the-art
+                    performance on multiple benchmark datasets, excelling particularly in the challenging ×16 GDSR task.
+
                 </p>
             </div>
 
             <div style="padding-top: 20px;">
-                <h1 class="section-name">Method</h1>
+                <h1 class="section-name">Architecture</h1>
                 <img src="model.png" width="1000"/>
                 <p class="section-content-text">
                     (a) is an overview of the proposed D2A2 network. 
